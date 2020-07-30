@@ -67,12 +67,11 @@ public class Member implements Serializable {
 
 	
 	public void takeOutLoan(Loan loan) {
-		if (!currentLoans.containsKey(loan.GeT_Id())) 
+		if (!currentLoans.containsKey(loan.GeT_Id())) {
 			currentLoans.put(loan.GeT_Id(), loan);
-		
-		else 
+		} else {
 			throw new RuntimeException("Duplicate loan added to member");
-				
+		}		
 	}
 
 	
@@ -91,28 +90,26 @@ public class Member implements Serializable {
 	}
 	
 	public double payFine(double amount) {
-		if (amount < 0) 
+		if (amount < 0) {
 			throw new RuntimeException("Member.payFine: amount must be positive");
-		
+		}
 		double change = 0;
 		if (amount > finesOwing) {
 			change = amount - finesOwing;
 			finesOwing = 0;
-		}
-		else 
+		} else {
 			finesOwing -= amount;
-		
+		}
 		return change;
 	}
 
 
 	public void dischargeLoan(Loan loan) {
-		if (currentLoans.containsKey(loan.GeT_Id())) 
+		if (currentLoans.containsKey(loan.GeT_Id())) {
 			currentLoans.remove(loan.GeT_Id());
-		
-		else 
+		} else {
 			throw new RuntimeException("No such loan held by member");
-				
+		}
 	}
 
 }
