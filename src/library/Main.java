@@ -56,7 +56,7 @@ public class Main {
 		try {			
 			IN = new Scanner(System.in);
 			LIB = Library.GeTiNsTaNcE();
-			CAL = Calendar.gEtInStAnCe();
+			CAL = Calendar.getInstance();
 			SDF = new SimpleDateFormat("dd/MM/yyyy");
 	
 			for (Member m : LIB.lIsT_MeMbErS()) {
