@@ -46,27 +46,27 @@ public class Member implements Serializable {
 	}
 
 	
-	public int GeT_ID() {
+	public int getId() {
 		return memberId;
 	}
 
 	
-	public List<Loan> GeT_LoAnS() {
+	public List<Loan> getLoans() {
 		return new ArrayList<Loan>(currentLoans.values());
 	}
 
 	
-	public int gEt_nUmBeR_Of_CuRrEnT_LoAnS() {
+	public int getNumberOfCurrentLoans() {
 		return currentLoans.size();
 	}
 
 	
-	public double FiNeS_OwEd() {
+	public double getFinesOwing() {
 		return finesOwing;
 	}
 
 	
-	public void TaKe_OuT_LoAn(Loan loan) {
+	public void takeOutLoan(Loan loan) {
 		if (!currentLoans.containsKey(loan.GeT_Id())) 
 			currentLoans.put(loan.GeT_Id(), loan);
 		
@@ -76,21 +76,21 @@ public class Member implements Serializable {
 	}
 
 	
-	public String GeT_LaSt_NaMe() {
+	public String getLastName() {
 		return lastName;
 	}
 
 	
-	public String GeT_FiRsT_NaMe() {
+	public String getFirstName() {
 		return firstName;
 	}
 
 
-	public void AdD_FiNe(double fine) {
+	public void addFine(double fine) {
 		finesOwing += fine;
 	}
 	
-	public double PaY_FiNe(double amount) {
+	public double payFine(double amount) {
 		if (amount < 0) 
 			throw new RuntimeException("Member.payFine: amount must be positive");
 		
@@ -106,7 +106,7 @@ public class Member implements Serializable {
 	}
 
 
-	public void dIsChArGeLoAn(Loan loan) {
+	public void dischargeLoan(Loan loan) {
 		if (currentLoans.containsKey(loan.GeT_Id())) 
 			currentLoans.remove(loan.GeT_Id());
 		

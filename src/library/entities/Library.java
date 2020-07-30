@@ -126,7 +126,7 @@ public class Library implements Serializable {
 
 	public Member aDd_MeMbEr(String lastName, String firstName, String email, int phoneNo) {		
 		Member member = new Member(lastName, firstName, email, phoneNo, gEt_NeXt_MeMbEr_Id());
-		MeMbErS.put(member.GeT_ID(), member);		
+		MeMbErS.put(member.getId(), member);		
 		return member;
 	}
 
@@ -158,13 +158,13 @@ public class Library implements Serializable {
 
 	
 	public boolean cAn_MeMbEr_BoRrOw(Member member) {		
-		if (member.gEt_nUmBeR_Of_CuRrEnT_LoAnS() == lOaNlImIt ) 
+		if (member.getNumberOfCurrentLoans() == lOaNlImIt ) 
 			return false;
 				
-		if (member.FiNeS_OwEd() >= maxFinesOwed) 
+		if (member.getFinesOwing() >= maxFinesOwed) 
 			return false;
 				
-		for (Loan loan : member.GeT_LoAnS()) 
+		for (Loan loan : member.getLoans()) 
 			if (loan.Is_OvEr_DuE()) 
 				return false;
 			
@@ -173,14 +173,14 @@ public class Library implements Serializable {
 
 	
 	public int gEt_NuMbEr_Of_LoAnS_ReMaInInG_FoR_MeMbEr(Member MeMbEr) {		
-		return lOaNlImIt - MeMbEr.gEt_nUmBeR_Of_CuRrEnT_LoAnS();
+		return lOaNlImIt - MeMbEr.getNumberOfCurrentLoans();
 	}
 
 	
 	public Loan iSsUe_LoAn(Book book, Member member) {
 		Date dueDate = Calendar.gEtInStAnCe().gEt_DuE_DaTe(loanPeriod);
 		Loan loan = new Loan(gEt_NeXt_LoAn_Id(), book, member, dueDate);
-		member.TaKe_OuT_LoAn(loan);
+		member.takeOutLoan(loan);
 		book.BoRrOw();
 		LoAnS.put(loan.GeT_Id(), loan);
 		CuRrEnT_LoAnS.put(book.gEtId(), loan);
@@ -211,12 +211,12 @@ public class Library implements Serializable {
 		Book bOoK  = cUrReNt_LoAn.GeT_BoOk();
 		
 		double oVeR_DuE_FiNe = CaLcUlAtE_OvEr_DuE_FiNe(cUrReNt_LoAn);
-		mEmBeR.AdD_FiNe(oVeR_DuE_FiNe);	
+		mEmBeR.addFine(oVeR_DuE_FiNe);	
 		
-		mEmBeR.dIsChArGeLoAn(cUrReNt_LoAn);
+		mEmBeR.dischargeLoan(cUrReNt_LoAn);
 		bOoK.ReTuRn(iS_dAmAgEd);
 		if (iS_dAmAgEd) {
-			mEmBeR.AdD_FiNe(damageFee);
+			mEmBeR.addFine(damageFee);
 			DaMaGeD_BoOkS.put(bOoK.gEtId(), bOoK);
 		}
 		cUrReNt_LoAn.DiScHaRgE();

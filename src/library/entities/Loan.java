@@ -52,8 +52,8 @@ public class Loan implements Serializable {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("Loan:  ").append(LoAn_Id).append("\n")
-		  .append("  Borrower ").append(MeMbEr.GeT_ID()).append(" : ")
-		  .append(MeMbEr.GeT_LaSt_NaMe()).append(", ").append(MeMbEr.GeT_FiRsT_NaMe()).append("\n")
+		  .append("  Borrower ").append(MeMbEr.getId()).append(" : ")
+		  .append(MeMbEr.getLastName()).append(", ").append(MeMbEr.getFirstName()).append("\n")
 		  .append("  Book ").append(BoOk.gEtId()).append(" : " )
 		  .append(BoOk.gEtTiTlE()).append("\n")
 		  .append("  DueDate: ").append(sdf.format(DaTe)).append("\n")
