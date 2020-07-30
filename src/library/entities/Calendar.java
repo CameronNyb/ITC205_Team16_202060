@@ -30,11 +30,11 @@ public class Calendar {
 	        calendar.set(java.util.Calendar.MINUTE, 0);  
 	        calendar.set(java.util.Calendar.SECOND, 0);  
 	        calendar.set(java.util.Calendar.MILLISECOND, 0);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}	
 	}
+
 	public synchronized Date getDate() {
 		try {
 	        calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);  
@@ -42,8 +42,7 @@ public class Calendar {
 	        calendar.set(java.util.Calendar.SECOND, 0);  
 	        calendar.set(java.util.Calendar.MILLISECOND, 0);
 			return calendar.getTime();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}	
 	}
@@ -57,7 +56,6 @@ public class Calendar {
 	}
 	
 	public synchronized long getDifferenceInDays(Date targetDate) {
-		
 		long differenceInMilliseconds = getDate().getTime() - targetDate.getTime();
 	    long differenceInDays = TimeUnit.DAYS.convert(differenceInMilliseconds, TimeUnit.MILLISECONDS);
 	    return differenceInDays;
