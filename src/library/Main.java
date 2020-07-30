@@ -73,7 +73,7 @@ public class Main {
 			
 			while (!e) {
 				
-				output("\n" + SDF.format(CAL.getDate()));
+				output("\n" + SDF.format(CAL.gEt_DaTe()));
 				String c = input(MENU);
 				
 				switch (c.toUpperCase()) {
@@ -135,8 +135,7 @@ public class Main {
 		output("\nEnded\n");
 	}	
 
-	
-	private static void PAY_FINES() {
+		private static void PAY_FINES() {
 		new PayFineUI(new pAY_fINE_cONTROL()).RuN();		
 	}
 
@@ -188,7 +187,7 @@ public class Main {
 			int days = Integer.valueOf(input("Enter number of days: ")).intValue();
 			CAL.incrementDate(days);
 			LIB.cHeCk_CuRrEnT_LoAnS();
-			output(SDF.format(CAL.getDate()));
+			output(SDF.format(CAL.gEt_DaTe()));
 			
 		} catch (NumberFormatException e) {
 			 output("\nInvalid number of days\n");

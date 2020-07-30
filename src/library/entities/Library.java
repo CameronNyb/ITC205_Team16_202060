@@ -56,7 +56,7 @@ public class Library implements Serializable {
 				try (ObjectInputStream LiBrArY_FiLe = new ObjectInputStream(new FileInputStream(lIbRaRyFiLe));) {
 			    
 					SeLf = (Library) LiBrArY_FiLe.readObject();
-					Calendar.gEtInStAnCe().setDate(SeLf.lOaN_DaTe);
+					Calendar.gEtInStAnCe().SeT_DaTe(SeLf.lOaN_DaTe);
 					LiBrArY_FiLe.close();
 				}
 				catch (Exception e) {
@@ -71,7 +71,7 @@ public class Library implements Serializable {
 	
 	public static synchronized void SaVe() {
 		if (SeLf != null) {
-			SeLf.lOaN_DaTe = Calendar.gEtInStAnCe().getDate();
+			SeLf.lOaN_DaTe = Calendar.gEtInStAnCe().gEt_DaTe();
 			try (ObjectOutputStream LiBrArY_fIlE = new ObjectOutputStream(new FileOutputStream(lIbRaRyFiLe));) {
 				LiBrArY_fIlE.writeObject(SeLf);
 				LiBrArY_fIlE.flush();
@@ -178,7 +178,7 @@ public class Library implements Serializable {
 
 	
 	public Loan iSsUe_LoAn(Book book, Member member) {
-		Date dueDate = Calendar.gEtInStAnCe().getDueDate(loanPeriod);
+		Date dueDate = Calendar.gEtInStAnCe().gEt_DuE_DaTe(loanPeriod);
 		Loan loan = new Loan(gEt_NeXt_LoAn_Id(), book, member, dueDate);
 		member.TaKe_OuT_LoAn(loan);
 		book.BoRrOw();
@@ -198,7 +198,7 @@ public class Library implements Serializable {
 	
 	public double CaLcUlAtE_OvEr_DuE_FiNe(Loan LoAn) {
 		if (LoAn.Is_OvEr_DuE()) {
-			long DaYs_OvEr_DuE = Calendar.gEtInStAnCe().getDaysDifference(LoAn.GeT_DuE_DaTe());
+			long DaYs_OvEr_DuE = Calendar.gEtInStAnCe().GeT_DaYs_DiFfErEnCe(LoAn.GeT_DuE_DaTe());
 			double fInE = DaYs_OvEr_DuE * FiNe_PeR_DaY;
 			return fInE;
 		}
