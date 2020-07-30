@@ -8,108 +8,108 @@ import java.util.Map;
 @SuppressWarnings("serial")
 public class Member implements Serializable {
 
-	private String lastName;
-	private String firstName;
-	private String emailAddress;
-	private int phoneNumber;
-	private int memberId;
-	private double finesOwing;
-	
-	private Map<Integer, Loan> currentLoans;
+    private String lastName;
+    private String firstName;
+    private String emailAddress;
+    private int phoneNumber;
+    private int memberId;
+    private double finesOwing;
+    
+    private Map<Integer, Loan> currentLoans;
 
-	
-	public Member(String lastName, String firstName, String emailAddress, int phoneNumber, int memberId) {
-		this.lastName = lastName;
-		this.firstName = firstName;
-		this.emailAddress = emailAddress;
-		this.phoneNumber = phoneNumber;
-		this.memberId = memberId;
-		
-		this.currentLoans = new HashMap<>();
-	}
+    
+    public Member(String lastName, String firstName, String emailAddress, int phoneNumber, int memberId) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.emailAddress = emailAddress;
+        this.phoneNumber = phoneNumber;
+        this.memberId = memberId;
+        
+        this.currentLoans = new HashMap<>();
+    }
 
-	
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Member:  ").append(memberId).append("\n")
-		  .append("  Name:  ").append(lastName).append(", ").append(firstName).append("\n")
-		  .append("  Email: ").append(emailAddress).append("\n")
-		  .append("  Phone: ").append(phoneNumber)
-		  .append("\n")
-		  .append(String.format("  Fines Owed :  $%.2f", finesOwing))
-		  .append("\n");
-		
-		for (Loan loan : currentLoans.values()) {
-			sb.append(loan).append("\n");
-		}		  
-		return sb.toString();
-	}
+    
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Member:  ").append(memberId).append("\n")
+          .append("  Name:  ").append(lastName).append(", ").append(firstName).append("\n")
+          .append("  Email: ").append(emailAddress).append("\n")
+          .append("  Phone: ").append(phoneNumber)
+          .append("\n")
+          .append(String.format("  Fines Owed :  $%.2f", finesOwing))
+          .append("\n");
+        
+        for (Loan loan : currentLoans.values()) {
+            sb.append(loan).append("\n");
+        }
+        return sb.toString();
+    }
 
-	
-	public int getId() {
-		return memberId;
-	}
+    
+    public int getId() {
+        return memberId;
+    }
 
-	
-	public List<Loan> getLoans() {
-		return new ArrayList<Loan>(currentLoans.values());
-	}
+    
+    public List<Loan> getLoans() {
+        return new ArrayList<Loan>(currentLoans.values());
+    }
 
-	
-	public int getNumberOfCurrentLoans() {
-		return currentLoans.size();
-	}
+    
+    public int getNumberOfCurrentLoans() {
+        return currentLoans.size();
+    }
 
-	
-	public double getFinesOwing() {
-		return finesOwing;
-	}
+    
+    public double getFinesOwing() {
+        return finesOwing;
+    }
 
-	
-	public void takeOutLoan(Loan loan) {
-		if (!currentLoans.containsKey(loan.GeT_Id())) {
-			currentLoans.put(loan.GeT_Id(), loan);
-		} else {
-			throw new RuntimeException("Duplicate loan added to member");
-		}		
-	}
+    
+    public void takeOutLoan(Loan loan) {
+        if (!currentLoans.containsKey(loan.GeT_Id())) {
+            currentLoans.put(loan.GeT_Id(), loan);
+        } else {
+            throw new RuntimeException("Duplicate loan added to member");
+        }
+    }
 
-	
-	public String getLastName() {
-		return lastName;
-	}
+    
+    public String getLastName() {
+        return lastName;
+    }
 
-	
-	public String getFirstName() {
-		return firstName;
-	}
-
-
-	public void addFine(double fine) {
-		finesOwing += fine;
-	}
-	
-	public double payFine(double amount) {
-		if (amount < 0) {
-			throw new RuntimeException("Member.payFine: amount must be positive");
-		}
-		double change = 0;
-		if (amount > finesOwing) {
-			change = amount - finesOwing;
-			finesOwing = 0;
-		} else {
-			finesOwing -= amount;
-		}
-		return change;
-	}
+    
+    public String getFirstName() {
+        return firstName;
+    }
 
 
-	public void dischargeLoan(Loan loan) {
-		if (currentLoans.containsKey(loan.GeT_Id())) {
-			currentLoans.remove(loan.GeT_Id());
-		} else {
-			throw new RuntimeException("No such loan held by member");
-		}
-	}
+    public void addFine(double fine) {
+        finesOwing += fine;
+    }
+    
+    public double payFine(double amount) {
+        if (amount < 0) {
+            throw new RuntimeException("Member.payFine: amount must be positive");
+        }
+        double change = 0;
+        if (amount > finesOwing) {
+            change = amount - finesOwing;
+            finesOwing = 0;
+        } else {
+            finesOwing -= amount;
+        }
+        return change;
+    }
+
+
+    public void dischargeLoan(Loan loan) {
+        if (currentLoans.containsKey(loan.GeT_Id())) {
+            currentLoans.remove(loan.GeT_Id());
+        } else {
+            throw new RuntimeException("No such loan held by member");
+        }
+    }
 
 }
