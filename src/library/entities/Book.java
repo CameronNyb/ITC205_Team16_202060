@@ -13,7 +13,6 @@ public class Book implements Serializable {
 	private enum State { AVAILABLE, ON_LOAN, DAMAGED, RESERVED };
 	private State state;
 	
-	
 	public Book(String author, String title, String callNo, int id) {
 		this.author = author;
 		this.title = title;
@@ -40,58 +39,44 @@ public class Book implements Serializable {
 	public String getTitle() {
 		return title;
 	}
-
-
 	
 	public boolean isAvailable() {
 		return state == State.AVAILABLE;
 	}
-
 	
 	public boolean isOnLoan() {
 		return state == State.ON_LOAN;
 	}
-
 	
 	public boolean isDamaged() {
 		return state == State.DAMAGED;
 	}
-
 	
 	public void borrow() {
-		if (state.equals(State.AVAILABLE)) 
-			state = State.ON_LOAN;
-		
-		else 
-			throw new RuntimeException(String.format("Book: cannot borrow while book is in state: %s", state));
-		
-		
+		if (state.equals(State.AVAILABLE)) {
+			state = State.ON_LOAN;		
+        } else {
+            throw new RuntimeException(String.format("Book: cannot borrow while book is in state: %s", state));
+        }
 	}
-
 
 	public void returnBook(boolean damaged) {
-		if (state.equals(State.ON_LOAN)) 
-			if (damaged) 
+		if (state.equals(State.ON_LOAN)) {
+			if (damaged) {
 				state = State.DAMAGED;
-			
-			else 
-				state = State.AVAILABLE;
-			
-		
-		else 
-			throw new RuntimeException(String.format("Book: cannot Return while book is in state: %s", state));
-				
+            } else {
+                state = State.AVAILABLE;
+            }
+        } else {
+            throw new RuntimeException(String.format("Book: cannot Return while book is in state: %s", state));
+        }				
 	}
-
 	
 	public void repair() {
-		if (state.equals(State.DAMAGED)) 
-			state = State.AVAILABLE;
-		
-		else 
-			throw new RuntimeException(String.format("Book: cannot repair while book is in state: %s", state));
-		
+		if (state.equals(State.DAMAGED)) {
+            state = State.AVAILABLE;
+        } else {
+            throw new RuntimeException(String.format("Book: cannot repair while book is in state: %s", state));
+        }		
 	}
-
-
 }
