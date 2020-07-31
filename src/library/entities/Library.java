@@ -181,7 +181,7 @@ public class Library implements Serializable {
 		Date dueDate = Calendar.gEtInStAnCe().gEt_DuE_DaTe(loanPeriod);
 		Loan loan = new Loan(gEt_NeXt_LoAn_Id(), book, member, dueDate);
 		member.TaKe_OuT_LoAn(loan);
-		book.BoRrOw();
+		book.borrow();
 		LoAnS.put(loan.GeT_Id(), loan);
 		CuRrEnT_LoAnS.put(book.getID(), loan);
 		return loan;
@@ -214,7 +214,7 @@ public class Library implements Serializable {
 		mEmBeR.AdD_FiNe(oVeR_DuE_FiNe);	
 		
 		mEmBeR.dIsChArGeLoAn(cUrReNt_LoAn);
-		bOoK.ReTuRn(iS_dAmAgEd);
+		bOoK.returnBook(iS_dAmAgEd);
 		if (iS_dAmAgEd) {
 			mEmBeR.AdD_FiNe(damageFee);
 			DaMaGeD_BoOkS.put(bOoK.getID(), bOoK);
@@ -233,7 +233,7 @@ public class Library implements Serializable {
 
 	public void RePaIr_BoOk(Book cUrReNt_BoOk) {
 		if (DaMaGeD_BoOkS.containsKey(cUrReNt_BoOk.getID())) {
-			cUrReNt_BoOk.RePaIr();
+			cUrReNt_BoOk.repair();
 			DaMaGeD_BoOkS.remove(cUrReNt_BoOk.getID());
 		}
 		else 

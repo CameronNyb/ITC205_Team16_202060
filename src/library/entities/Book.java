@@ -37,28 +37,28 @@ public class Book implements Serializable {
 		return id;
 	}
 
-	public String gEtTiTlE() {
+	public String getTitle() {
 		return title;
 	}
 
 
 	
-	public boolean iS_AvAiLaBlE() {
+	public boolean isAvailable() {
 		return state == State.AVAILABLE;
 	}
 
 	
-	public boolean iS_On_LoAn() {
+	public boolean isOnLoan() {
 		return state == State.ON_LOAN;
 	}
 
 	
-	public boolean iS_DaMaGeD() {
+	public boolean isDamaged() {
 		return state == State.DAMAGED;
 	}
 
 	
-	public void BoRrOw() {
+	public void borrow() {
 		if (state.equals(State.AVAILABLE)) 
 			state = State.ON_LOAN;
 		
@@ -69,9 +69,9 @@ public class Book implements Serializable {
 	}
 
 
-	public void ReTuRn(boolean DaMaGeD) {
+	public void returnBook(boolean damaged) {
 		if (state.equals(State.ON_LOAN)) 
-			if (DaMaGeD) 
+			if (damaged) 
 				state = State.DAMAGED;
 			
 			else 
@@ -84,7 +84,7 @@ public class Book implements Serializable {
 	}
 
 	
-	public void RePaIr() {
+	public void repair() {
 		if (state.equals(State.DAMAGED)) 
 			state = State.AVAILABLE;
 		
