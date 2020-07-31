@@ -14,38 +14,31 @@ public class Loan implements Serializable {
 	private Date date;
 	private LoanState state;
 
-	
-	public Loan(int loanId, Book bOoK, Member mEmBeR, Date DuE_dAtE) {
+	public Loan(int loanId, Book book, Member member, Date dueDate) {
 		this.loanId = loanId;
-		this.book = bOoK;
-		this.member = mEmBeR;
-		this.date = DuE_dAtE;
+		this.book = book;
+		this.member = member;
+		this.date = dueDate;
 		this.state = LoanState.CURRENT;
 	}
-
 	
 	public void checkOverDue() {
-		if (state == LoanState.CURRENT &&
-			Calendar.gEtInStAnCe().gEt_DaTe().after(date)) 
-			this.state = LoanState.OVER_DUE;			
-		
+		if (state == LoanState.CURRENT && Calendar.gEtInStAnCe().gEt_DaTe().after(date)) {
+            this.state = LoanState.OVER_DUE;				
+        }
 	}
-
 	
 	public boolean isOverDue() {
 		return state == LoanState.OVER_DUE;
 	}
-
 	
 	public Integer getId() {
 		return loanId;
 	}
 
-
 	public Date getDueDate() {
 		return date;
-	}
-	
+	}	
 	
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -61,16 +54,13 @@ public class Loan implements Serializable {
 		return sb.toString();
 	}
 
-
 	public Member getMember() {
 		return member;
 	}
 
-
 	public Book getBook() {
 		return book;
 	}
-
 
 	public void discharge() {
 		state = LoanState.DISCHARGED;		
