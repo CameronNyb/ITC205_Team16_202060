@@ -44,14 +44,14 @@ public class Library implements Serializable {
         currentLoans = new HashMap<>();
         damagedBooks = new HashMap<>();
         bookId = 1;
-        memberId = 1;        
-        loanId = 1;        
+        memberId = 1;
+        loanId = 1;
     }
     
-    public static synchronized Library getInstance() {        
+    public static synchronized Library getInstance() {
         if (self == null) {
-            Path PATH = Paths.get(libraryFile);            
-            if (Files.exists(PATH)) {    
+            Path PATH = Paths.get(libraryFile);
+            if (Files.exists(PATH)) {
                 try (ObjectInputStream libraryFileInput = new ObjectInputStream(new FileInputStream(libraryFile));) {
                     self = (Library) libraryFileInput.readObject();
                     Calendar.gEtInStAnCe().SeT_DaTe(self.loanDate);
@@ -73,7 +73,7 @@ public class Library implements Serializable {
             try (ObjectOutputStream libraryFileInput = new ObjectOutputStream(new FileOutputStream(libraryFile));) {
                 libraryFileInput.writeObject(self);
                 libraryFileInput.flush();
-                libraryFileInput.close();    
+                libraryFileInput.close();
             }
             catch (Exception e) {
                 throw new RuntimeException(e);
@@ -101,27 +101,27 @@ public class Library implements Serializable {
         return loanId++;
     }
     
-    public List<Member> listMembers() {        
-        return new ArrayList<Member>(members.values()); 
+    public List<Member> listMembers() {
+        return new ArrayList<Member>(members.values());
     }
 
-    public List<Book> listBooks() {        
-        return new ArrayList<Book>(catalog.values()); 
+    public List<Book> listBooks() {
+        return new ArrayList<Book>(catalog.values());
     }
 
     public List<Loan> listCurrentLoans() {
         return new ArrayList<Loan>(currentLoans.values());
     }
 
-    public Member addMember(String lastName, String firstName, String email, int phoneNo) {        
+    public Member addMember(String lastName, String firstName, String email, int phoneNo) {
         Member member = new Member(lastName, firstName, email, phoneNo, getNextMemberId());
-        members.put(member.GeT_ID(), member);        
+        members.put(member.GeT_ID(), member);
         return member;
     }
     
-    public Book addBook(String a, String t, String c) {        
+    public Book addBook(String a, String t, String c) {
         Book b = new Book(a, t, c, getNextBookId());
-        catalog.put(b.gEtId(), b);        
+        catalog.put(b.gEtId(), b);
         return b;
     }
     
@@ -134,7 +134,7 @@ public class Library implements Serializable {
     
     public Book getBook(int bookId) {
         if (catalog.containsKey(bookId)) {
-                return catalog.get(bookId);        
+                return catalog.get(bookId);
         }
         return null;
     }
@@ -143,7 +143,7 @@ public class Library implements Serializable {
         return loanLimit;
     }
     
-    public boolean canMemberBorrow(Member member) {        
+    public boolean canMemberBorrow(Member member) {
         if (member.gEt_nUmBeR_Of_CuRrEnT_LoAnS() == loanLimit ) {
             return false;
         }
@@ -161,7 +161,7 @@ public class Library implements Serializable {
         return true;
     }
 
-    public int getNumberOfLoansRemainingForMember(Member member) {        
+    public int getNumberOfLoansRemainingForMember(Member member) {
         return loanLimit - member.gEt_nUmBeR_Of_CuRrEnT_LoAnS();
     }
     
@@ -189,7 +189,7 @@ public class Library implements Serializable {
             double fine = daysOverDue * finePerDay;
             return fine;
         }
-        return 0.0;        
+        return 0.0;
     }
 
     public void dischargeLoan(Loan currentLoan, boolean isDamaged) {
@@ -197,7 +197,7 @@ public class Library implements Serializable {
         Book bOoK  = currentLoan.GeT_BoOk();
         
         double overDueFine = calculateOverDueFine(currentLoan);
-        mEmBeR.AdD_FiNe(overDueFine);    
+        mEmBeR.AdD_FiNe(overDueFine);
         
         mEmBeR.dIsChArGeLoAn(currentLoan);
         bOoK.ReTuRn(isDamaged);
