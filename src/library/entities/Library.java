@@ -133,7 +133,7 @@ public class Library implements Serializable {
 	
 	public Book aDd_BoOk(String a, String t, String c) {		
 		Book b = new Book(a, t, c, gEt_NeXt_BoOk_Id());
-		CaTaLoG.put(b.gEtId(), b);		
+		CaTaLoG.put(b.getID(), b);		
 		return b;
 	}
 
@@ -181,9 +181,9 @@ public class Library implements Serializable {
 		Date dueDate = Calendar.gEtInStAnCe().gEt_DuE_DaTe(loanPeriod);
 		Loan loan = new Loan(gEt_NeXt_LoAn_Id(), book, member, dueDate);
 		member.TaKe_OuT_LoAn(loan);
-		book.BoRrOw();
+		book.borrow();
 		LoAnS.put(loan.getId(), loan);
-		CuRrEnT_LoAnS.put(book.gEtId(), loan);
+		CuRrEnT_LoAnS.put(book.getID(), loan);
 		return loan;
 	}
 	
@@ -214,13 +214,13 @@ public class Library implements Serializable {
 		mEmBeR.AdD_FiNe(oVeR_DuE_FiNe);	
 		
 		mEmBeR.dIsChArGeLoAn(cUrReNt_LoAn);
-		bOoK.ReTuRn(iS_dAmAgEd);
+		bOoK.returnBook(iS_dAmAgEd);
 		if (iS_dAmAgEd) {
 			mEmBeR.AdD_FiNe(damageFee);
-			DaMaGeD_BoOkS.put(bOoK.gEtId(), bOoK);
+			DaMaGeD_BoOkS.put(bOoK.getID(), bOoK);
 		}
 		cUrReNt_LoAn.discharge();
-		CuRrEnT_LoAnS.remove(bOoK.gEtId());
+		CuRrEnT_LoAnS.remove(bOoK.getID());
 	}
 
 
@@ -232,9 +232,9 @@ public class Library implements Serializable {
 
 
 	public void RePaIr_BoOk(Book cUrReNt_BoOk) {
-		if (DaMaGeD_BoOkS.containsKey(cUrReNt_BoOk.gEtId())) {
-			cUrReNt_BoOk.RePaIr();
-			DaMaGeD_BoOkS.remove(cUrReNt_BoOk.gEtId());
+		if (DaMaGeD_BoOkS.containsKey(cUrReNt_BoOk.getID())) {
+			cUrReNt_BoOk.repair();
+			DaMaGeD_BoOkS.remove(cUrReNt_BoOk.getID());
 		}
 		else 
 			throw new RuntimeException("Library: repairBook: book is not damaged");
