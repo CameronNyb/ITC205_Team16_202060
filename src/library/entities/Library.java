@@ -191,16 +191,16 @@ public class Library implements Serializable {
     }
 
     public void dischargeLoan(Loan currentLoan, boolean isDamaged) {
-        Member mEmBeR = currentLoan.getMember();
+        Member member = currentLoan.getMember();
         Book bOoK = currentLoan.getBook();
 
         double overDueFine = calculateOverDueFine(currentLoan);
-        mEmBeR.addFine(overDueFine);
+        member.addFine(overDueFine);
 
-        mEmBeR.dischargeLoan(currentLoan);
+        member.dischargeLoan(currentLoan);
         bOoK.returnBook(isDamaged);
         if (isDamaged) {
-            mEmBeR.addFine(damageFee);
+            member.addFine(damageFee);
             damagedBooks.put(bOoK.getID(), bOoK);
         }
         currentLoan.discharge();
