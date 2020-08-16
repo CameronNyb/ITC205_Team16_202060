@@ -4,24 +4,24 @@ import java.util.Scanner;
 
 public class BorrowBookUI {
 	
-	public static enum uI_STaTe { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
+	public static enum UI_STATE { INITIALISED, READY, RESTRICTED, SCANNING, IDENTIFIED, FINALISING, COMPLETED, CANCELLED };
 
-	private BorrowBookControl CoNtRoL;
-	private Scanner InPuT;
-	private uI_STaTe StaTe;
+	private BorrowBookControl control;
+	private Scanner input;
+	private UI_STATE state;
 
 	
 	public BorrowBookUI(BorrowBookControl control) {
-		this.CoNtRoL = control;
-		InPuT = new Scanner(System.in);
-		StaTe = uI_STaTe.INITIALISED;
+		this.control = control;
+		input = new Scanner(System.in);
+		state = UI_STATE.INITIALISED;
 		control.setUi(this);
 	}
 
 	
 	private String iNpUT(String PrOmPt) {
 		System.out.print(PrOmPt);
-		return InPuT.nextLine();
+		return input.nextLine();
 	}	
 		
 		
@@ -30,8 +30,8 @@ public class BorrowBookUI {
 	}
 	
 			
-	public void SeT_StAtE(uI_STaTe StAtE) {
-		this.StaTe = StAtE;
+	public void SeT_StAtE(UI_STATE StAtE) {
+		this.state = StAtE;
 	}
 
 	
@@ -40,7 +40,7 @@ public class BorrowBookUI {
 		
 		while (true) {
 			
-			switch (StaTe) {			
+			switch (state) {			
 			
 			case CANCELLED:
 				OuTpUt("Borrowing Cancelled");
@@ -50,12 +50,12 @@ public class BorrowBookUI {
 			case READY:
 				String MEM_STR = iNpUT("Swipe member card (press <enter> to cancel): ");
 				if (MEM_STR.length() == 0) {
-					CoNtRoL.cancel();
+					control.cancel();
 					break;
 				}
 				try {
 					int MeMbEr_Id = Integer.valueOf(MEM_STR).intValue();
-					CoNtRoL.swiped(MeMbEr_Id);
+					control.swiped(MeMbEr_Id);
 				}
 				catch (NumberFormatException e) {
 					OuTpUt("Invalid Member Id");
@@ -65,19 +65,19 @@ public class BorrowBookUI {
 				
 			case RESTRICTED:
 				iNpUT("Press <any key> to cancel");
-				CoNtRoL.cancel();
+				control.cancel();
 				break;
 			
 				
 			case SCANNING:
 				String BoOk_StRiNg_InPuT = iNpUT("Scan Book (<enter> completes): ");
 				if (BoOk_StRiNg_InPuT.length() == 0) {
-					CoNtRoL.complete();
+					control.complete();
 					break;
 				}
 				try {
 					int BiD = Integer.valueOf(BoOk_StRiNg_InPuT).intValue();
-					CoNtRoL.scanned(BiD);
+					control.scanned(BiD);
 					
 				} catch (NumberFormatException e) {
 					OuTpUt("Invalid Book Id");
@@ -88,10 +88,10 @@ public class BorrowBookUI {
 			case FINALISING:
 				String AnS = iNpUT("Commit loans? (Y/N): ");
 				if (AnS.toUpperCase().equals("N")) {
-					CoNtRoL.cancel();
+					control.cancel();
 					
 				} else {
-					CoNtRoL.commitLoans();
+					control.commitLoans();
 					iNpUT("Press <any key> to complete ");
 				}
 				break;
@@ -104,7 +104,7 @@ public class BorrowBookUI {
 				
 			default:
 				OuTpUt("Unhandled state");
-				throw new RuntimeException("BorrowBookUI : unhandled state :" + StaTe);			
+				throw new RuntimeException("BorrowBookUI : unhandled state :" + state);			
 			}
 		}		
 	}
