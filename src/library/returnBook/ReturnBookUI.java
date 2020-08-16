@@ -6,16 +6,16 @@ public class ReturnBookUI {
 
 	public static enum uI_sTaTe { INITIALISED, READY, INSPECTING, COMPLETED };
 
-	private rETURN_bOOK_cONTROL CoNtRoL;
-	private Scanner iNpUt;
+	private rETURN_bOOK_cONTROL control;
+	private Scanner input;
 	private uI_sTaTe StATe;
 
 	
-	public ReturnBookUI(rETURN_bOOK_cONTROL cOnTrOL) {
-		this.CoNtRoL = cOnTrOL;
-		iNpUt = new Scanner(System.in);
+	public ReturnBookUI(rETURN_bOOK_cONTROL control) {
+		this.control = control;
+		input = new Scanner(System.in);
 		StATe = uI_sTaTe.INITIALISED;
-		cOnTrOL.sEt_uI(this);
+		control.sEt_uI(this);
 	}
 
 
@@ -32,12 +32,12 @@ public class ReturnBookUI {
 			case READY:
 				String BoOk_InPuT_StRiNg = iNpUt("Scan Book (<enter> completes): ");
 				if (BoOk_InPuT_StRiNg.length() == 0) 
-					CoNtRoL.sCaNnInG_cOmPlEtE();
+					control.sCaNnInG_cOmPlEtE();
 				
 				else {
 					try {
-						int Book_Id = Integer.valueOf(BoOk_InPuT_StRiNg).intValue();
-						CoNtRoL.bOoK_sCaNnEd(Book_Id);
+						int bookId = Integer.valueOf(BoOk_InPuT_StRiNg).intValue();
+						control.bOoK_sCaNnEd(bookId);
 					}
 					catch (NumberFormatException e) {
 						oUtPuT("Invalid bookId");
@@ -46,12 +46,12 @@ public class ReturnBookUI {
 				break;				
 				
 			case INSPECTING:
-				String AnS = iNpUt("Is book damaged? (Y/N): ");
+				String answer = iNpUt("Is book damaged? (Y/N): ");
 				boolean Is_DAmAgEd = false;
-				if (AnS.toUpperCase().equals("Y")) 					
+				if (answer.toUpperCase().equals("Y")) 					
 					Is_DAmAgEd = true;
 				
-				CoNtRoL.dIsChArGe_lOaN(Is_DAmAgEd);
+				control.dIsChArGe_lOaN(Is_DAmAgEd);
 			
 			case COMPLETED:
 				oUtPuT("Return processing complete");
@@ -65,14 +65,14 @@ public class ReturnBookUI {
 	}
 
 	
-	private String iNpUt(String PrOmPt) {
-		System.out.print(PrOmPt);
-		return iNpUt.nextLine();
+	private String iNpUt(String prompt) {
+		System.out.print(prompt);
+		return input.nextLine();
 	}	
 		
 		
-	private void oUtPuT(Object ObJeCt) {
-		System.out.println(ObJeCt);
+	private void oUtPuT(Object object) {
+		System.out.println(object);
 	}
 	
 			
