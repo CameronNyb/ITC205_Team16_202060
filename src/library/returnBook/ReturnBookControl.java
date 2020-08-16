@@ -23,9 +23,9 @@ public class ReturnBookControl {
 	
 	
 	public void setUi(ReturnBookUI ui) {
-		if (!state.equals(ControlState.INITIALISED)) 
+		if (!state.equals(ControlState.INITIALISED)) {
 			throw new RuntimeException("ReturnBookControl: cannot call setUI except in INITIALISED state");
-		
+		}
 		this.ui = ui;
 		ui.setState(ReturnBookUI.UIState.READY);
 		state = ControlState.READY;		
@@ -33,9 +33,9 @@ public class ReturnBookControl {
 
 
 	public void bookScanned(int bookId) {
-		if (!state.equals(ControlState.READY)) 
+		if (!state.equals(ControlState.READY)) {
 			throw new RuntimeException("ReturnBookControl: cannot call bookScanned except in READY state");
-		
+		}
 		Book currentBook = library.getBook(bookId);
 		
 		if (currentBook == null) {
@@ -48,33 +48,33 @@ public class ReturnBookControl {
 		}		
 		currentLoan = library.getLoanByBookId(bookId);	
 		double overdueFine = 0.0;
-		if (currentLoan.isOverDue()) 
+		if (currentLoan.isOverDue()) {
 			overdueFine = library.calculateOverDueFine(currentLoan);
-		
+		}
 		ui.display("Inspecting");
 		ui.display(currentBook.toString());
 		ui.display(currentLoan.toString());
 		
-		if (currentLoan.isOverDue()) 
+		if (currentLoan.isOverDue()) {
 			ui.display(String.format("\nOverdue fine : $%.2f", overdueFine));
-		
+		}
 		ui.setState(ReturnBookUI.UIState.INSPECTING);
 		state = ControlState.INSPECTING;		
 	}
 
 
 	public void scanningComplete() {
-		if (!state.equals(ControlState.READY)) 
+		if (!state.equals(ControlState.READY)) {
 			throw new RuntimeException("ReturnBookControl: cannot call scanningComplete except in READY state");
-			
+		}
 		ui.setState(ReturnBookUI.UIState.COMPLETED);		
 	}
 
 
 	public void dischargeLoan(boolean damaged) {
-		if (!state.equals(ControlState.INSPECTING)) 
+		if (!state.equals(ControlState.INSPECTING)) {
 			throw new RuntimeException("ReturnBookControl: cannot call dischargeLoan except in INSPECTING state");
-		
+		}
 		library.dischargeLoan(currentLoan, damaged);
 		currentLoan = null;
 		ui.setState(ReturnBookUI.UIState.READY);
