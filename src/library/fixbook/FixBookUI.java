@@ -6,21 +6,21 @@ public class FixBookUI {
 
 	public static enum uI_sTaTe { INITIALISED, READY, FIXING, COMPLETED };
 
-	private fIX_bOOK_cONTROL CoNtRoL;
-	private Scanner InPuT;
-	private uI_sTaTe StAtE;
+	private fIX_bOOK_cONTROL control;
+	private Scanner input;
+	private uI_sTaTe state;
 
 	
-	public FixBookUI(fIX_bOOK_cONTROL CoNtRoL) {
-		this.CoNtRoL = CoNtRoL;
-		InPuT = new Scanner(System.in);
-		StAtE = uI_sTaTe.INITIALISED;
-		CoNtRoL.SeT_Ui(this);
+	public FixBookUI(fIX_bOOK_cONTROL control) {
+		this.control = control;
+		input = new Scanner(System.in);
+		state = uI_sTaTe.INITIALISED;
+		control.SeT_Ui(this);
 	}
 
 
 	public void SeT_StAtE(uI_sTaTe state) {
-		this.StAtE = state;
+		this.state = state;
 	}
 
 	
@@ -29,17 +29,17 @@ public class FixBookUI {
 		
 		while (true) {
 			
-			switch (StAtE) {
+			switch (state) {
 			
 			case READY:
-				String BoOk_EnTrY_StRiNg = iNpUt("Scan Book (<enter> completes): ");
-				if (BoOk_EnTrY_StRiNg.length() == 0) 
-					CoNtRoL.SCannING_COMplete();
+				String bookEntryString = iNpUt("Scan Book (<enter> completes): ");
+				if (bookEntryString.length() == 0) 
+					control.SCannING_COMplete();
 				
 				else {
 					try {
-						int BoOk_Id = Integer.valueOf(BoOk_EnTrY_StRiNg).intValue();
-						CoNtRoL.BoOk_ScAnNeD(BoOk_Id);
+						int bookId = Integer.valueOf(bookEntryString).intValue();
+						control.BoOk_ScAnNeD(bookId);
 					}
 					catch (NumberFormatException e) {
 						OuTpUt("Invalid bookId");
@@ -48,12 +48,12 @@ public class FixBookUI {
 				break;	
 				
 			case FIXING:
-				String AnS = iNpUt("Fix Book? (Y/N) : ");
-				boolean FiX = false;
-				if (AnS.toUpperCase().equals("Y")) 
-					FiX = true;
+				String answer = iNpUt("Fix Book? (Y/N) : ");
+				boolean fix = false;
+				if (answer.toUpperCase().equals("Y")) 
+					fix = true;
 				
-				CoNtRoL.FiX_BoOk(FiX);
+				control.FiX_BoOk(fix);
 				break;
 								
 			case COMPLETED:
@@ -62,7 +62,7 @@ public class FixBookUI {
 			
 			default:
 				OuTpUt("Unhandled state");
-				throw new RuntimeException("FixBookUI : unhandled state :" + StAtE);			
+				throw new RuntimeException("FixBookUI : unhandled state :" + state);			
 			
 			}		
 		}
@@ -72,7 +72,7 @@ public class FixBookUI {
 	
 	private String iNpUt(String prompt) {
 		System.out.print(prompt);
-		return InPuT.nextLine();
+		return input.nextLine();
 	}	
 		
 		
