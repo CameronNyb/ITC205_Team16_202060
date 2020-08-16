@@ -31,15 +31,13 @@ public class ReturnBookUI {
 				
 			case READY:
 				String BoOk_InPuT_StRiNg = input("Scan Book (<enter> completes): ");
-				if (BoOk_InPuT_StRiNg.length() == 0) 
+				if (BoOk_InPuT_StRiNg.length() == 0) {
 					control.scanningComplete();
-				
-				else {
+				} else {
 					try {
 						int bookId = Integer.valueOf(BoOk_InPuT_StRiNg).intValue();
 						control.bookScanned(bookId);
-					}
-					catch (NumberFormatException e) {
+					} catch (NumberFormatException e) {
 						output("Invalid bookId");
 					}					
 				}
@@ -48,9 +46,9 @@ public class ReturnBookUI {
 			case INSPECTING:
 				String answer = input("Is book damaged? (Y/N): ");
 				boolean Is_DAmAgEd = false;
-				if (answer.toUpperCase().equals("Y")) 					
+				if (answer.toUpperCase().equals("Y")) {					
 					Is_DAmAgEd = true;
-				
+				}
 				control.dischargeLoan(Is_DAmAgEd);
 			
 			case COMPLETED:
