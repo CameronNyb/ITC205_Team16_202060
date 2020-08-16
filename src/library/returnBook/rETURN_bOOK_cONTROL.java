@@ -19,7 +19,7 @@ public class rETURN_bOOK_cONTROL {
 	}
 	
 	
-	public void sEt_uI(ReturnBookUI ui) {
+	public void setUi(ReturnBookUI ui) {
 		if (!state.equals(cOnTrOl_sTaTe.INITIALISED)) 
 			throw new RuntimeException("ReturnBookControl: cannot call setUI except in INITIALISED state");
 		
@@ -29,7 +29,7 @@ public class rETURN_bOOK_cONTROL {
 	}
 
 
-	public void bOoK_sCaNnEd(int bookId) {
+	public void bookScanned(int bookId) {
 		if (!state.equals(cOnTrOl_sTaTe.READY)) 
 			throw new RuntimeException("ReturnBookControl: cannot call bookScanned except in READY state");
 		
@@ -60,7 +60,7 @@ public class rETURN_bOOK_cONTROL {
 	}
 
 
-	public void sCaNnInG_cOmPlEtE() {
+	public void scanningComplete() {
 		if (!state.equals(cOnTrOl_sTaTe.READY)) 
 			throw new RuntimeException("ReturnBookControl: cannot call scanningComplete except in READY state");
 			
@@ -68,7 +68,7 @@ public class rETURN_bOOK_cONTROL {
 	}
 
 
-	public void dIsChArGe_lOaN(boolean damaged) {
+	public void dischargeLoan(boolean damaged) {
 		if (!state.equals(cOnTrOl_sTaTe.INSPECTING)) 
 			throw new RuntimeException("ReturnBookControl: cannot call dischargeLoan except in INSPECTING state");
 		
