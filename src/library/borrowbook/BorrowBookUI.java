@@ -19,36 +19,36 @@ public class BorrowBookUI {
 	}
 
 	
-	private String iNpUT(String PrOmPt) {
+	private String input(String PrOmPt) {
 		System.out.print(PrOmPt);
 		return input.nextLine();
 	}	
 		
 		
-	private void OuTpUt(Object ObJeCt) {
+	private void output(Object ObJeCt) {
 		System.out.println(ObJeCt);
 	}
 	
 			
-	public void SeT_StAtE(UI_STATE StAtE) {
+	public void setState(UI_STATE StAtE) {
 		this.state = StAtE;
 	}
 
 	
-	public void RuN() {
-		OuTpUt("Borrow Book Use Case UI\n");
+	public void run() {
+		output("Borrow Book Use Case UI\n");
 		
 		while (true) {
 			
 			switch (state) {			
 			
 			case CANCELLED:
-				OuTpUt("Borrowing Cancelled");
+				output("Borrowing Cancelled");
 				return;
 
 				
 			case READY:
-				String MEM_STR = iNpUT("Swipe member card (press <enter> to cancel): ");
+				String MEM_STR = input("Swipe member card (press <enter> to cancel): ");
 				if (MEM_STR.length() == 0) {
 					control.cancel();
 					break;
@@ -58,19 +58,19 @@ public class BorrowBookUI {
 					control.swiped(MeMbEr_Id);
 				}
 				catch (NumberFormatException e) {
-					OuTpUt("Invalid Member Id");
+					output("Invalid Member Id");
 				}
 				break;
 
 				
 			case RESTRICTED:
-				iNpUT("Press <any key> to cancel");
+				input("Press <any key> to cancel");
 				control.cancel();
 				break;
 			
 				
 			case SCANNING:
-				String BoOk_StRiNg_InPuT = iNpUT("Scan Book (<enter> completes): ");
+				String BoOk_StRiNg_InPuT = input("Scan Book (<enter> completes): ");
 				if (BoOk_StRiNg_InPuT.length() == 0) {
 					control.complete();
 					break;
@@ -80,38 +80,38 @@ public class BorrowBookUI {
 					control.scanned(BiD);
 					
 				} catch (NumberFormatException e) {
-					OuTpUt("Invalid Book Id");
+					output("Invalid Book Id");
 				} 
 				break;
 					
 				
 			case FINALISING:
-				String AnS = iNpUT("Commit loans? (Y/N): ");
+				String AnS = input("Commit loans? (Y/N): ");
 				if (AnS.toUpperCase().equals("N")) {
 					control.cancel();
 					
 				} else {
 					control.commitLoans();
-					iNpUT("Press <any key> to complete ");
+					input("Press <any key> to complete ");
 				}
 				break;
 				
 				
 			case COMPLETED:
-				OuTpUt("Borrowing Completed");
+				output("Borrowing Completed");
 				return;
 	
 				
 			default:
-				OuTpUt("Unhandled state");
+				output("Unhandled state");
 				throw new RuntimeException("BorrowBookUI : unhandled state :" + state);			
 			}
 		}		
 	}
 
 
-	public void DiSpLaY(Object object) {
-		OuTpUt(object);		
+	public void display(Object object) {
+		output(object);		
 	}
 
 

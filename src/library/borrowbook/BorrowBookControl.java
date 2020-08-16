@@ -30,7 +30,7 @@ public class BorrowBookControl {
             throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
             
         this.ui = ui;
-        ui.SeT_StAtE(BorrowBookUI.UI_STATE.READY);
+        ui.setState(BorrowBookUI.UI_STATE.READY);
         state = CONTROL_STATE.READY;        
     }
         
@@ -40,16 +40,16 @@ public class BorrowBookControl {
             
         member = library.getMember(memberId);
         if (member == null) {
-            ui.DiSpLaY("Invalid memberId");
+            ui.display("Invalid memberId");
             return;
         }
         if (library.canMemberBorrow(member)) {
             pendingList = new ArrayList<>();
-            ui.SeT_StAtE(BorrowBookUI.UI_STATE.SCANNING);
+            ui.setState(BorrowBookUI.UI_STATE.SCANNING);
             state = CONTROL_STATE.SCANNING; 
         } else {
-            ui.DiSpLaY("Member cannot borrow at this time");
-            ui.SeT_StAtE(BorrowBookUI.UI_STATE.RESTRICTED); 
+            ui.display("Member cannot borrow at this time");
+            ui.setState(BorrowBookUI.UI_STATE.RESTRICTED); 
         }
     }
     
@@ -61,20 +61,20 @@ public class BorrowBookControl {
             
         book = library.getBook(bookId);
         if (book == null) {
-            ui.DiSpLaY("Invalid bookId");
+            ui.display("Invalid bookId");
             return;
         }
         if (!book.isAvailable()) {
-            ui.DiSpLaY("Book cannot be borrowed");
+            ui.display("Book cannot be borrowed");
             return;
         }
         pendingList.add(book);
         for (Book B : pendingList) { 
-            ui.DiSpLaY(B.toString());
+            ui.display(B.toString());
         }
         
         if (library.getNumberOfLoansRemainingForMember(member) - pendingList.size() == 0) {
-            ui.DiSpLaY("Loan limit reached");
+            ui.display("Loan limit reached");
             complete();
         }
     }
@@ -83,13 +83,13 @@ public class BorrowBookControl {
         if (pendingList.size() == 0) {
             cancel();
         } else {
-            ui.DiSpLaY("\nFinal Borrowing List");
+            ui.display("\nFinal Borrowing List");
             for (Book bOoK : pendingList) {
-                ui.DiSpLaY(bOoK.toString());
+                ui.display(bOoK.toString());
             }
             
             completedList = new ArrayList<Loan>();
-            ui.SeT_StAtE(BorrowBookUI.UI_STATE.FINALISING);
+            ui.setState(BorrowBookUI.UI_STATE.FINALISING);
             state = CONTROL_STATE.FINALISING;
         }
     }
@@ -103,17 +103,17 @@ public class BorrowBookControl {
             Loan loanIssue = library.issueLoan(b, member);
             completedList.add(loanIssue);            
         }
-        ui.DiSpLaY("Completed Loan Slip");
+        ui.display("Completed Loan Slip");
         for (Loan loan : completedList) {
-            ui.DiSpLaY(loan.toString());
+            ui.display(loan.toString());
         }
         
-        ui.SeT_StAtE(BorrowBookUI.UI_STATE.COMPLETED);
+        ui.setState(BorrowBookUI.UI_STATE.COMPLETED);
         state = CONTROL_STATE.COMPLETED;
     }
     
     public void cancel() {
-        ui.SeT_StAtE(BorrowBookUI.UI_STATE.CANCELLED);
+        ui.setState(BorrowBookUI.UI_STATE.CANCELLED);
         state = CONTROL_STATE.CANCELLED;
     }
     
