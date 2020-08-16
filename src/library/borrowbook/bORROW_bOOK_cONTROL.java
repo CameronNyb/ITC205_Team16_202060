@@ -27,7 +27,7 @@ public class bORROW_bOOK_cONTROL {
 	}
 	
 
-	public void SeT_Ui(BorrowBookUI Ui) {
+	public void setUi(BorrowBookUI Ui) {
 		if (!sTaTe.equals(CONTROL_STATE.INITIALISED)) 
 			throw new RuntimeException("BorrowBookControl: cannot call setUI except in INITIALISED state");
 			
@@ -37,7 +37,7 @@ public class bORROW_bOOK_cONTROL {
 	}
 
 		
-	public void SwIpEd(int mEmBeR_Id) {
+	public void swiped(int mEmBeR_Id) {
 		if (!sTaTe.equals(CONTROL_STATE.READY)) 
 			throw new RuntimeException("BorrowBookControl: cannot call cardSwiped except in READY state");
 			
@@ -58,7 +58,7 @@ public class bORROW_bOOK_cONTROL {
 	}
 	
 	
-	public void ScAnNeD(int bOoKiD) {
+	public void scanned(int bOoKiD) {
 		bOoK = null;
 		if (!sTaTe.equals(CONTROL_STATE.SCANNING)) 
 			throw new RuntimeException("BorrowBookControl: cannot call bookScanned except in SCANNING state");
@@ -78,14 +78,14 @@ public class bORROW_bOOK_cONTROL {
 		
 		if (lIbRaRy.getNumberOfLoansRemainingForMember(mEmBeR) - pEnDiNg_LiSt.size() == 0) {
 			uI.DiSpLaY("Loan limit reached");
-			CoMpLeTe();
+			complete();
 		}
 	}
 	
 	
-	public void CoMpLeTe() {
+	public void complete() {
 		if (pEnDiNg_LiSt.size() == 0) 
-			CaNcEl();
+			cancel();
 		
 		else {
 			uI.DiSpLaY("\nFinal Borrowing List");
@@ -99,7 +99,7 @@ public class bORROW_bOOK_cONTROL {
 	}
 
 
-	public void CoMmIt_LoAnS() {
+	public void commitLoans() {
 		if (!sTaTe.equals(CONTROL_STATE.FINALISING)) 
 			throw new RuntimeException("BorrowBookControl: cannot call commitLoans except in FINALISING state");
 			
@@ -116,7 +116,7 @@ public class bORROW_bOOK_cONTROL {
 	}
 
 	
-	public void CaNcEl() {
+	public void cancel() {
 		uI.SeT_StAtE(BorrowBookUI.uI_STaTe.CANCELLED);
 		sTaTe = CONTROL_STATE.CANCELLED;
 	}
