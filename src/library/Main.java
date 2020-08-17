@@ -1,5 +1,7 @@
 package library;
+
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import library.borrowbook.BorrowBookUI;
@@ -70,8 +72,9 @@ public class Main {
             boolean exit = false;
             
             while (!exit) {
-                
-                output("\n" + simpleDateFormat.format(calendar.getDate()));
+                Date date = calendar.getDate();
+                String outputString = simpleDateFormat.format(date);
+                output("\n" + outputString);
                 String c = input(menu);
                 
                 switch (c.toUpperCase()) {
@@ -175,7 +178,9 @@ public class Main {
             int days = Integer.valueOf(input("Enter number of days: ")).intValue();
             calendar.incrementDate(days);
             library.checkCurrentLoans();
-            output(simpleDateFormat.format(calendar.getDate()));
+            Date date = calendar.getDate();
+            String outputString = simpleDateFormat.format(date);
+            output(outputString);
             
         } catch (NumberFormatException e) {
             output("\nInvalid number of days\n");
