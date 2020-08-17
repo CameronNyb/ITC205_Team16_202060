@@ -8,13 +8,13 @@ public class ReturnBookUI {
 
     private ReturnBookControl control;
     private Scanner input;
-    private UIState StATe;
+    private UIState state;
 
 
     public ReturnBookUI(ReturnBookControl control) {
         this.control = control;
         input = new Scanner(System.in);
-        StATe = UIState.INITIALISED;
+        state = UIState.INITIALISED;
         control.setUi(this);
     }
 
@@ -24,7 +24,7 @@ public class ReturnBookUI {
         
         while (true) {
             
-            switch (StATe) {
+            switch (state) {
             
             case INITIALISED:
                 break;
@@ -57,7 +57,7 @@ public class ReturnBookUI {
             
             default:
                 output("Unhandled state");
-                throw new RuntimeException("ReturnBookUI : unhandled state :" + StATe);
+                throw new RuntimeException("ReturnBookUI : unhandled state :" + state);
             }
         }
     }
@@ -79,6 +79,6 @@ public class ReturnBookUI {
     }
     
     public void setState(UIState state) {
-        this.StATe = state;
+        this.state = state;
     }
 }
