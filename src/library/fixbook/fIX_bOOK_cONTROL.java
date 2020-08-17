@@ -23,7 +23,7 @@ public class fIX_bOOK_cONTROL {
 			throw new RuntimeException("FixBookControl: cannot call setUI except in INITIALISED state");
 			
 		this.ui = ui;
-		ui.SeT_StAtE(FixBookUI.uI_sTaTe.READY);
+		ui.setState(FixBookUI.uI_sTaTe.READY);
 		state = CoNtRoL_StAtE.READY;		
 	}
 
@@ -35,15 +35,15 @@ public class fIX_bOOK_cONTROL {
 		currentBook = library.getBook(bookId);
 		
 		if (currentBook == null) {
-			ui.dIsPlAy("Invalid bookId");
+			ui.display("Invalid bookId");
 			return;
 		}
 		if (!currentBook.isDamaged()) {
-			ui.dIsPlAy("Book has not been damaged");
+			ui.display("Book has not been damaged");
 			return;
 		}
-		ui.dIsPlAy(currentBook.toString());
-		ui.SeT_StAtE(FixBookUI.uI_sTaTe.FIXING);
+		ui.display(currentBook.toString());
+		ui.setState(FixBookUI.uI_sTaTe.FIXING);
 		state = CoNtRoL_StAtE.FIXING;		
 	}
 
@@ -56,7 +56,7 @@ public class fIX_bOOK_cONTROL {
 			library.repairBook(currentBook);
 		
 		currentBook = null;
-		ui.SeT_StAtE(FixBookUI.uI_sTaTe.READY);
+		ui.setState(FixBookUI.uI_sTaTe.READY);
 		state = CoNtRoL_StAtE.READY;		
 	}
 
@@ -65,7 +65,7 @@ public class fIX_bOOK_cONTROL {
 		if (!state.equals(CoNtRoL_StAtE.READY)) 
 			throw new RuntimeException("FixBookControl: cannot call scanningComplete except in READY state");
 			
-		ui.SeT_StAtE(FixBookUI.uI_sTaTe.COMPLETED);		
+		ui.setState(FixBookUI.uI_sTaTe.COMPLETED);		
 	}
 
 }

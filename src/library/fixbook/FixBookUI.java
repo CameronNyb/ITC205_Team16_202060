@@ -19,20 +19,20 @@ public class FixBookUI {
 	}
 
 
-	public void SeT_StAtE(uI_sTaTe state) {
+	public void setState(uI_sTaTe state) {
 		this.state = state;
 	}
 
 	
-	public void RuN() {
-		OuTpUt("Fix Book Use Case UI\n");
+	public void run() {
+		output("Fix Book Use Case UI\n");
 		
 		while (true) {
 			
 			switch (state) {
 			
 			case READY:
-				String bookEntryString = iNpUt("Scan Book (<enter> completes): ");
+				String bookEntryString = input("Scan Book (<enter> completes): ");
 				if (bookEntryString.length() == 0) 
 					control.scanningComplete();
 				
@@ -42,13 +42,13 @@ public class FixBookUI {
 						control.bookScanned(bookId);
 					}
 					catch (NumberFormatException e) {
-						OuTpUt("Invalid bookId");
+						output("Invalid bookId");
 					}
 				}
 				break;	
 				
 			case FIXING:
-				String answer = iNpUt("Fix Book? (Y/N) : ");
+				String answer = input("Fix Book? (Y/N) : ");
 				boolean fix = false;
 				if (answer.toUpperCase().equals("Y")) 
 					fix = true;
@@ -57,11 +57,11 @@ public class FixBookUI {
 				break;
 								
 			case COMPLETED:
-				OuTpUt("Fixing process complete");
+				output("Fixing process complete");
 				return;
 			
 			default:
-				OuTpUt("Unhandled state");
+				output("Unhandled state");
 				throw new RuntimeException("FixBookUI : unhandled state :" + state);			
 			
 			}		
@@ -70,19 +70,19 @@ public class FixBookUI {
 	}
 
 	
-	private String iNpUt(String prompt) {
+	private String input(String prompt) {
 		System.out.print(prompt);
 		return input.nextLine();
 	}	
 		
 		
-	private void OuTpUt(Object object) {
+	private void output(Object object) {
 		System.out.println(object);
 	}
 	
 
-	public void dIsPlAy(Object object) {
-		OuTpUt(object);
+	public void display(Object object) {
+		output(object);
 	}
 	
 	
