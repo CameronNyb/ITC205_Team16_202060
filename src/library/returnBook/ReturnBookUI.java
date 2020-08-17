@@ -30,12 +30,12 @@ public class ReturnBookUI {
                 break;
                 
             case READY:
-                String BoOk_InPuT_StRiNg = input("Scan Book (<enter> completes): ");
-                if (BoOk_InPuT_StRiNg.length() == 0) {
+                String bookInputString = input("Scan Book (<enter> completes): ");
+                if (bookInputString.length() == 0) {
                     control.scanningComplete();
                 } else {
                     try {
-                        int bookId = Integer.valueOf(BoOk_InPuT_StRiNg).intValue();
+                        int bookId = Integer.valueOf(bookInputString).intValue();
                         control.bookScanned(bookId);
                     } catch (NumberFormatException e) {
                         output("Invalid bookId");
