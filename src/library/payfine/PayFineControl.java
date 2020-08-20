@@ -18,21 +18,21 @@ public class PayFineControl {
 	}
 	
 	
-	public void setUI(PayFineUI uI) {
+	public void setUI(PayFineUI ui) {
 		if (!state.equals(ControlState.INITIALISED)) {
 			throw new RuntimeException("PayFineControl: cannot call setUI except in INITIALISED state");
 		}	
-		this.ui = uI;
-		uI.setState(PayFineUI.UIState.READY);
+		this.ui = ui;
+		ui.setState(PayFineUI.UIState.READY);
 		state = ControlState.READY;		
 	}
 
 
-	public void cardSwiped(int MeMbEr_Id) {
+	public void cardSwiped(int memberID) {
 		if (!state.equals(ControlState.READY)) 
 			throw new RuntimeException("PayFineControl: cannot call cardSwiped except in READY state");
 			
-		member = library.getMember(MeMbEr_Id);
+		member = library.getMember(memberID);
 		
 		if (member == null) {
 			ui.display("Invalid Member Id");
@@ -50,11 +50,11 @@ public class PayFineControl {
 	}
 
 
-	public double payFine(double AmOuNt) {
+	public double payFine(double amount) {
 		if (!state.equals(ControlState.PAYING)) 
 			throw new RuntimeException("PayFineControl: cannot call payFine except in PAYING state");
 			
-		double change = member.payFine(AmOuNt);
+		double change = member.payFine(amount);
 		if (change > 0) 
 			ui.display(String.format("Change: $%.2f", change));
 		
