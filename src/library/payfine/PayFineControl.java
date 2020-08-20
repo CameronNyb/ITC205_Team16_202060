@@ -29,8 +29,9 @@ public class PayFineControl {
 
 
 	public void cardSwiped(int memberId) {
-		if (!state.equals(ControlState.READY)) 
-			throw new RuntimeException("PayFineControl: cannot call cardSwiped except in READY state");
+		if (!state.equals(ControlState.READY)) {
+            throw new RuntimeException("PayFineControl: cannot call cardSwiped except in READY state");
+        }
 			
 		member = library.getMember(memberId);
 		
@@ -51,12 +52,14 @@ public class PayFineControl {
 
 
 	public double payFine(double AmOuNt) {
-		if (!state.equals(ControlState.PAYING)) 
-			throw new RuntimeException("PayFineControl: cannot call payFine except in PAYING state");
+		if (!state.equals(ControlState.PAYING)) {
+            throw new RuntimeException("PayFineControl: cannot call payFine except in PAYING state");
+        }
 			
 		double change = member.payFine(AmOuNt);
-		if (change > 0) 
-			ui.DiSplAY(String.format("Change: $%.2f", change));
+		if (change > 0) {
+            ui.DiSplAY(String.format("Change: $%.2f", change));
+        }
 		
 		ui.DiSplAY(member.toString());
 		ui.SeT_StAtE(PayFineUI.uI_sTaTe.COMPLETED);
