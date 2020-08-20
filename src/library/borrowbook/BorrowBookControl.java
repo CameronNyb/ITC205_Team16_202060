@@ -31,7 +31,7 @@ public class BorrowBookControl {
         }
             
         this.ui = ui;
-        ui.setState(BorrowBookUI.UI_STATE.READY);
+        ui.setState(BorrowBookUI.UIState.READY);
         state = ControlState.READY;        
     }
         
@@ -47,11 +47,11 @@ public class BorrowBookControl {
         }
         if (library.canMemberBorrow(member)) {
             pendingList = new ArrayList<>();
-            ui.setState(BorrowBookUI.UI_STATE.SCANNING);
+            ui.setState(BorrowBookUI.UIState.SCANNING);
             state = ControlState.SCANNING; 
         } else {
             ui.display("Member cannot borrow at this time");
-            ui.setState(BorrowBookUI.UI_STATE.RESTRICTED); 
+            ui.setState(BorrowBookUI.UIState.RESTRICTED); 
         }
     }
     
@@ -91,7 +91,7 @@ public class BorrowBookControl {
             }
             
             completedList = new ArrayList<Loan>();
-            ui.setState(BorrowBookUI.UI_STATE.FINALISING);
+            ui.setState(BorrowBookUI.UIState.FINALISING);
             state = ControlState.FINALISING;
         }
     }
@@ -110,12 +110,12 @@ public class BorrowBookControl {
             ui.display(loan.toString());
         }
         
-        ui.setState(BorrowBookUI.UI_STATE.COMPLETED);
+        ui.setState(BorrowBookUI.UIState.COMPLETED);
         state = ControlState.COMPLETED;
     }
     
     public void cancel() {
-        ui.setState(BorrowBookUI.UI_STATE.CANCELLED);
+        ui.setState(BorrowBookUI.UIState.CANCELLED);
         state = ControlState.CANCELLED;
     }
     
