@@ -5,18 +5,18 @@ import java.util.Date;
 import java.util.Scanner;
 
 import library.borrowbook.BorrowBookUI;
-import library.borrowbook.bORROW_bOOK_cONTROL;
+import library.borrowbook.BorrowBookControl;
 import library.entities.Book;
 import library.entities.Calendar;
 import library.entities.Library;
 import library.entities.Loan;
 import library.entities.Member;
 import library.fixbook.FixBookUI;
-import library.fixbook.fIX_bOOK_cONTROL;
+import library.fixbook.FixBookControl;
 import library.payfine.PayFineUI;
-import library.payfine.pAY_fINE_cONTROL;
+import library.payfine.PayFineControl;
 import library.returnBook.ReturnBookUI;
-import library.returnBook.rETURN_bOOK_cONTROL;
+import library.returnBook.ReturnBookControl;
 
 
 public class Main {
@@ -137,7 +137,7 @@ public class Main {
     }
     
     private static void payFines() {
-        new PayFineUI(new pAY_fINE_cONTROL()).RuN();
+        new PayFineUI(new PayFineControl()).run();
     }
 
     private static void listCurrentLoans() {
@@ -162,15 +162,15 @@ public class Main {
     }
 
     private static void borrowBook() {
-        new BorrowBookUI(new bORROW_bOOK_cONTROL()).RuN();
+        new BorrowBookUI(new BorrowBookControl()).run();
     }
 
     private static void returnBook() {
-        new ReturnBookUI(new rETURN_bOOK_cONTROL()).RuN();
+        new ReturnBookUI(new ReturnBookControl()).run();
     }
 
     private static void fixBooks() {
-        new FixBookUI(new fIX_bOOK_cONTROL()).RuN();
+        new FixBookUI(new FixBookControl()).run();
     }
 
     private static void incrementDate() {
