@@ -8,7 +8,7 @@ public class PayFineControl {
     private enum ControlState { INITIALISED, READY, PAYING, COMPLETED, CANCELLED };
     private ControlState state;
     
-    private Library library;
+    private final Library library;
     private Member member;
 
     public PayFineControl() {
