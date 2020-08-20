@@ -16,16 +16,16 @@ public class PayFineUI {
 		this.control = control;
 		input = new Scanner(System.in);
 		state = UIState.INITIALISED;
-		control.SeT_uI(this);
+		control.setUI(this);
 	}
 	
 	
-	public void SeT_StAtE(UIState state) {
+	public void setState(UIState state) {
 		this.state = state;
 	}
 
 
-	public void RuN() {
+	public void run() {
 		output("Pay Fine Use Case UI\n");
 		
 		while (true) {
@@ -35,12 +35,12 @@ public class PayFineUI {
 			case READY:
 				String Mem_Str = input("Swipe member card (press <enter> to cancel): ");
 				if (Mem_Str.length() == 0) {
-					control.CaNcEl();
+					control.cancel();
 					break;
 				}
 				try {
 					int Member_ID = Integer.valueOf(Mem_Str).intValue();
-					control.CaRd_sWiPeD(Member_ID);
+					control.cardSwiped(Member_ID);
 				}
 				catch (NumberFormatException e) {
 					output("Invalid memberId");
@@ -51,7 +51,7 @@ public class PayFineUI {
 				double AmouNT = 0;
 				String Amt_Str = input("Enter amount (<Enter> cancels) : ");
 				if (Amt_Str.length() == 0) {
-					control.CaNcEl();
+					control.cancel();
 					break;
 				}
 				try {
@@ -62,7 +62,7 @@ public class PayFineUI {
 					output("Amount must be positive");
 					break;
 				}
-				control.PaY_FiNe(AmouNT);
+				control.payFine(AmouNT);
 				break;
 								
 			case CANCELLED:
@@ -93,7 +93,7 @@ public class PayFineUI {
 	}	
 			
 
-	public void DiSplAY(Object object) {
+	public void display(Object object) {
 		output(object);
 	}
 
